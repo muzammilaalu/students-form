@@ -12,6 +12,7 @@ app.use(express.urlencoded())
 import studentRoutes from "./routes/studentRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import connectDb from "./config/dbConfig.js"
+import errorHandler from "./middelware/errorHandler.js";
 
 
 //DB connection
@@ -34,3 +35,6 @@ app.use("/api/students", studentRoutes);
 
 //for auth 
 app.use("/api/auth", authRoutes)
+
+//for error handling
+app.use(errorHandler)
