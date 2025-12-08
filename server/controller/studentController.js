@@ -20,7 +20,7 @@ const getStudents = async(req, res) => {
 }
 
 const addStudent = async (req, res) => {
-   const {name , email , age , course , } = req.body 
+   const {name , email , age , course  } = req.body 
 
   if(!name || !email || !age || !course ){
     res.status(400)
@@ -29,9 +29,12 @@ const addStudent = async (req, res) => {
     })
   }
 
+  console.log(req?.file?.path)
+
   const newstudent = await Student.create({
     name , email , course , profileImage: req.file.path , age 
   }) 
+
 
   if(!newstudent){
     res.status(404)
