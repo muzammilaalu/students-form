@@ -32,7 +32,7 @@ const addStudent = async (req, res) => {
   console.log(req?.file?.path)
 
   const newstudent = await Student.create({
-    name , email , course , profileImage: req.file.path , age 
+    name , email , course , profileImage: req.file.filename , age 
   }) 
 
 
