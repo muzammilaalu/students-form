@@ -4,7 +4,7 @@ const storage = multer.diskStorage({
         cb(null, "uploads/")
     },
     filename: (req, file, cb) => {
-        cb(null, `photo-${crypto.randomUUID()}.${file.originalname.split(".")[1]}`)
+        cb(null, file.originalname)
     }
 })
 
