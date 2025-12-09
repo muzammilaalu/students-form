@@ -19,37 +19,73 @@ const getStudents = async(req, res) => {
     res.send("All Students")
 }
 
+
 const addStudent = async (req, res) => {
-   const {name , email , age , course  } = req.body 
+  try {
+    const { name, email, age, course } = req.body;
 
-  if(!name || !email || !age || !course ){
-    res.status(400)
-    res.json({
-      msg : " fill all details "
-    })
+    if (!name || !email || !age || !course) {
+       res.status(400)
+       throw new Error( "Fill all details") 
+    }
+
+    // filename only (no folder name!)
+    const profileImage = req.file ? req.file.filename : null;
+
+    const newStudent = await Student.create({
+      name,
+      email,
+      age,
+      course,
+      profileImage, // ONLY filename
+    });
+
+     res.status(200).json(newStudent);
+
+  } catch (error) {
+     res.status(500)
+     throw new Error ("Something went wrong")
+    
   }
-
-  console.log(req?.file?.path)
-
-  const newstudent = await Student.create({
-    name , email , course , profileImage: req.file.filename , age 
-  }) 
+};
 
 
-  if(!newstudent){
-    res.status(404)
-    res.json({
-      msg : "student is not paid"
-    })
-  }
-
-  res.status(200)
-  res.json(newstudent)
 
 
-  res.json("api working")
 
-}
+
+
+// const addStudent = async (req, res) => {
+//    const {name , email , age , course  } = req.body 
+
+//   if(!name || !email || !age || !course ){
+//     res.status(400)
+//     res.json({
+//       msg : " fill all details "
+//     })
+//   }
+
+//   console.log(req?.file?.path)
+
+//   const newstudent = await Student.create({
+//     name , email , course , profileImage: req.file.filename , age 
+//   }) 
+
+
+//   if(!newstudent){
+//     res.status(404)
+//     res.json({
+//       msg : "student is not paid"
+//     })
+//   }
+
+//   res.status(200)
+//   res.json(newstudent)
+
+
+//   res.json("api working")
+
+// }
 
 const getStudent =async (req, res) => {
 
